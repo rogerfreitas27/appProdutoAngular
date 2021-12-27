@@ -1,0 +1,240 @@
+<div style="min-height:100vh; display:flex; flex-direction:column; 
+            justify-content:space-between;">
+<app-menu></app-menu>
+
+<br>
+
+<div class="container">
+
+<div *ngIf="mensagem">
+          <ngb-alert [dismissible]="true" (closed)="mensagem = ''" type='danger'>
+            <strong>{{mensagem}}</strong>
+          </ngb-alert> 
+          </div>
+		  
+		  
+		  <div *ngIf="mensagem_success">
+          <ngb-alert [dismissible]="true" (closed)="mensagem = ''" type='success'>
+            <strong>{{mensagem}}</strong>
+          </ngb-alert> 
+          </div>
+   
+      <div class="card text-center">
+        <div class="card-header">
+          {{title}}
+        </div>
+        <div class="card-body">
+          <form [formGroup]="formProduto" (ngSubmit)="onSubmit()">
+
+
+
+            <section class="content">
+              <div class="container-fluid">
+               
+            
+                <div class="row">
+                  <div class="col-md-8">
+                   
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label for="inputEmail4">Nome</label>
+						 <input type="hidden" id="id" name="id" formControlName="id">
+                        <input type="text" class="form-control" formControlName="nome"   id="inputEmail4" placeholder="Nome">
+                      </div>
+                    </div>
+
+                    <div *ngIf="nome.invalid && (nome.dirty || nome.touched)"  class="alert alert-danger">
+		  		  
+                      <div *ngIf="nome.errors?.required" class="alert alert-danger">
+            Campo nome é obrigatório.
+                        </div>
+                        
+                         <div *ngIf="nome.errors?.minlength" class="alert alert-danger">
+            Minimo de 3 caracteres
+                        </div>
+                        
+                        <div *ngIf="nome.errors?.maxlength" class="alert alert-danger">
+            Maximo de 10 caracteres
+                        </div>
+
+                       
+                       </div>
+
+        
+                      <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label for="inputPassword4">Descrição</label>
+                        <input type="text" class="form-control" formControlName="descricao" placeholder="Descrição">
+                      </div>
+                    </div>
+
+
+                    <div *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)"  class="alert alert-danger">
+		  		  
+                      <div *ngIf="descricao.errors?.required" class="alert alert-danger">
+						Campo de descrição é obrigatório.
+                        </div>
+                        
+                         <div *ngIf="descricao.errors?.minlength" class="alert alert-danger">
+						Minimo de 3 caracteres
+                        </div>
+                        
+                        <div *ngIf="descricao.errors?.maxlength" class="alert alert-danger">
+						Maximo de 10 caracteres
+                        </div>
+
+                      
+                       </div>
+
+
+
+        
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Valor</label>
+                        <input type="text" class="form-control" formControlName="valor" placeholder="Valor">
+                      </div>
+
+
+                      <div *ngIf="valor.invalid && (valor.dirty || valor.touched)"  class="alert alert-danger">
+		  		  
+                        <div *ngIf="valor.errors?.required" class="alert alert-danger">
+                        Campo valor é obrigatório.
+                      </div>                                                                                          
+                         </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputPassword4">Quantidade</label>
+                        <input type="number" class="form-control" formControlName="quantidade" placeholder="Quantidade">
+                      </div>
+
+                      <div *ngIf="quantidade.invalid && (quantidade.dirty || quantidade.touched)"  class="alert alert-danger">
+		  		  
+                        <div *ngIf="quantidade.errors?.required" class="alert alert-danger">
+              Campo valor é obrigatório.
+                          </div>
+                          
+                          
+                          <div *ngIf="quantidade.errors?.pattern" class="alert alert-danger">
+                           Quantidade minima de um produto para cadastro.
+                            </div>
+                          
+                           
+                        
+                         </div>
+                    </div>
+        
+            
+                 
+            
+                  </div>
+                  <!-- /.col -->
+            
+                  <div class="col-md-4">
+                   
+				   <div *ngIf="img">
+					<img style="width: 18rem;" [src]="img">
+					</div>
+					
+					
+				   
+				   
+
+                   
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div><!-- /.container-fluid -->
+            </section>
+
+
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Marca</label>
+                <select class="form-control" formControlName="marca">
+				 <option disabled>Selecione uma Marca</option>
+				 <!--<option *ngFor="let marca of marcas" [value]="marca.id" >{{marca.nome}}</option> -->
+                 <option *ngFor="let marca of marcas" value={{marca.id}}>{{marca.nome}}</option>				 
+				 </select>
+              </div>
+            
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Categoria</label>
+				<select class="form-control" formControlName="categoria">
+				 <option [ngValue]="null" disabled>Selecione uma Categoria</option>
+				 <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</option>       
+				 </select>
+              </div>
+
+              
+
+
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Imagem</label>
+                <input type="file" accept=".png, .jpg, .jpeg" name="img" (change)="showPreview($event)"  class="form-control-file" id="img">
+							  
+			  </div>
+            </div>
+            <div *ngIf="marca.invalid && (marca.dirty || marca.touched)"  class="alert alert-danger">
+		  		  
+              <div *ngIf="marca.errors?.required" class="alert alert-danger">
+    Campo marca é obrigatório.
+                </div>           
+                                
+               </div>
+
+
+               <div *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)"  class="alert alert-danger">
+		  		  
+                <div *ngIf="categoria.errors?.required" class="alert alert-danger">
+      Campo categoria é obrigatório.
+                  </div>           
+                                  
+                 </div>
+
+                 <div *ngIf="url_imagem.invalid && (url_imagem.dirty || url_imagem.touched)"  class="alert alert-danger">
+		  		  
+                  <div *ngIf="url_imagem.errors?.required" class="alert alert-danger">
+       Por favor anexe uma imagem do produto, nos formatos : png,jpeg,jpg.
+                    </div>           
+                                    
+                   </div>
+
+
+
+
+
+
+
+
+
+
+            <div class="form-group">
+                     
+              <div class=text-right>
+                <button type="submit" [disabled]="formProduto.invalid" class="btn btn-primary">Salvar</button>
+              </div>
+              
+              
+          
+          
+          </div>
+
+
+
+
+            
+          </form>
+        </div>
+        
+      </div>
+      
+
+
+</div>
+
+<app-footer></app-footer>
+
+</div>

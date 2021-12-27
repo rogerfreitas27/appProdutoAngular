@@ -1,0 +1,493 @@
+<div style="min-height:100vh; display:flex; flex-direction:column; 
+            justify-content:space-between;">
+  <app-menu></app-menu>
+
+  <br>
+  <div class="container">
+
+    <div class="card text-center">
+      <div class="card-header">
+{{title}}
+      </div>
+      <div class="card-body">
+
+
+
+
+        <form [formGroup]="formUsuario" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="inputEmail4">Nome</label>
+              <input type="text" class="form-control" formControlName="nome" id="inputEmail4" placeholder="Nome">
+              <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+
+                <div *ngIf="nome.errors?.required" class="alert alert-danger">
+                  Campo nome é obrigatório.
+                </div>
+
+                <div *ngIf="nome.errors?.minlength" class="alert alert-danger">
+                  Minimo de 3 caracteres
+                </div>
+
+                <div *ngIf="nome.errors?.maxlength" class="alert alert-danger">
+                  Maximo de 10 caracteres
+                </div>
+
+                <div *ngIf="nome.errors?.pattern" class="alert alert-danger">
+                  Apenas letras
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="form-group col-md-4">
+              <label for="inputPassword4">Email</label>
+              <input type="email" class="form-control" formControlName="email" id="inputPassword4" placeholder="email">
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+
+                <div *ngIf="email.errors?.required" class="alert alert-danger">
+                  Campo email é obrigatório.
+                </div>
+
+                <div *ngIf="email.errors?.email" class="alert alert-danger">
+                  Informe um email valido por favor
+                </div>
+
+                <div *ngIf="email.errors?.minlength" class="alert alert-danger">
+                  Minimo de 5 caracteres
+                </div>
+
+                <div *ngIf="email.errors?.maxlength" class="alert alert-danger">
+                  Maximo de 60 caracteres
+                </div>
+
+
+
+
+              </div>
+
+
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="inputPassword4">Senha</label>
+              <input type="password" class="form-control" formControlName="senha" id="inputPassword4"
+                placeholder="Senha">
+              <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="alert alert-danger">
+
+                <div *ngIf="senha.errors?.required" class="alert alert-danger">
+                  Campo senha é obrigatório.
+                </div>
+
+
+
+                <div *ngIf="senha.errors?.minlength" class="alert alert-danger">
+                  Minimo de 6 caracteres
+                </div>
+
+                <div *ngIf="senha.errors?.maxlength" class="alert alert-danger">
+                  Maximo de 10 caracteres
+                </div>
+
+
+              </div>
+
+            </div>
+          </div>
+
+
+
+          <fieldset class="form-group">
+
+            <legend>Categoria</legend>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Habilitar Leitura</label>
+                <select class="form-control" formControlName="CATEGORIA_READ_PRIVILEGE">
+                  <option disabled>Habilitar leitura</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='CATEGORIA_READ_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+                <div *ngIf="CATEGORIA_READ_PRIVILEGE.invalid && (CATEGORIA_READ_PRIVILEGE.dirty || CATEGORIA_READ_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="CATEGORIA_READ_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Habilitar escrita</label>
+                <select class="form-control" formControlName="CATEGORIA_WRITE_PRIVILEGE">
+                  <option disabled>Habilitar escrita</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='CATEGORIA_WRITE_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+
+                <div
+                  *ngIf="CATEGORIA_WRITE_PRIVILEGE.invalid && (CATEGORIA_WRITE_PRIVILEGE.dirty || CATEGORIA_WRITE_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="CATEGORIA_WRITE_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Habilitar exclusão</label>
+                <select class="form-control" formControlName="CATEGORIA_DELETE_PRIVILEGE">
+                   <option disabled>Habilitar exclusão</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='CATEGORIA_DELETE_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+                <div
+                  *ngIf="CATEGORIA_DELETE_PRIVILEGE.invalid && (CATEGORIA_DELETE_PRIVILEGE.dirty || CATEGORIA_DELETE_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="CATEGORIA_DELETE_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+          <fieldset class="form-group">
+
+            <legend>Marca</legend>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Habilitar leitura</label>
+                <select class="form-control" formControlName="MARCA_READ_PRIVILEGE">
+              <option disabled>Habilitar leitura</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='MARCA_READ_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+
+                <div
+                  *ngIf="MARCA_READ_PRIVILEGE.invalid && (MARCA_READ_PRIVILEGE.dirty || MARCA_READ_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="MARCA_READ_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Habilitar escrita</label>
+                <select class="form-control" formControlName="MARCA_WRITE_PRIVILEGE">
+                  <option disabled>Habilitar escrita</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='MARCA_WRITE_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+
+                <div
+                  *ngIf="MARCA_WRITE_PRIVILEGE.invalid && (MARCA_WRITE_PRIVILEGE.dirty || MARCA_WRITE_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="MARCA_WRITE_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Habilitar exclusão</label>
+                <select class="form-control" formControlName="MARCA_DELETE_PRIVILEGE">
+                 <option disabled>Habilitar exclusão</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='MARCA_DELETE_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+
+                <div
+                  *ngIf="MARCA_DELETE_PRIVILEGE.invalid && (MARCA_DELETE_PRIVILEGE.dirty || MARCA_DELETE_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="MARCA_DELETE_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <fieldset class="form-group">
+
+            <legend>Produtos</legend>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Habilitar leitura</label>
+                <select class="form-control" formControlName="PRODUTO_READ_PRIVILEGE">
+                   <option disabled>Habilitar leitura</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='PRODUTO_READ_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+                <div
+                  *ngIf="PRODUTO_READ_PRIVILEGE.invalid && (PRODUTO_READ_PRIVILEGE.dirty || PRODUTO_READ_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="PRODUTO_READ_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Habilitar escrita</label>
+                <select class="form-control" formControlName="PRODUTO_WRITE_PRIVILEGE">
+					<option disabled>Habilitar escrita</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='PRODUTO_WRITE_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+                <div
+                  *ngIf="PRODUTO_WRITE_PRIVILEGE.invalid && (PRODUTO_WRITE_PRIVILEGE.dirty || PRODUTO_WRITE_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="PRODUTO_WRITE_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Habilitar exclusão</label>
+                <select class="form-control" formControlName="PRODUTO_DELETE_PRIVILEGE">
+                 <option disabled>Habilitar exclusão</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='PRODUTO_DELETE_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+
+                <div
+                  *ngIf="PRODUTO_DELETE_PRIVILEGE.invalid && (PRODUTO_DELETE_PRIVILEGE.dirty || PRODUTO_DELETE_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="PRODUTO_DELETE_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+          <fieldset class="form-group">
+
+            <legend>usuário</legend>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Habilitar leitura</label>
+                <select class="form-control" formControlName="USUARIO_READ_PRIVILEGE">
+				<option disabled>Habilitar leitura</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='USUARIO_READ_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+
+                <div
+                  *ngIf="USUARIO_READ_PRIVILEGE.invalid && (USUARIO_READ_PRIVILEGE.dirty || USUARIO_READ_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="USUARIO_READ_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Habilitar escrita</label>
+                <select class="form-control" formControlName="USUARIO_WRITE_PRIVILEGE">
+                  <option disabled>Habilitar escrita</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='USUARIO_WRITE_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+
+                <div
+                  *ngIf="USUARIO_WRITE_PRIVILEGE.invalid && (USUARIO_WRITE_PRIVILEGE.dirty || USUARIO_WRITE_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="USUARIO_WRITE_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Habilitar exclusão</label>
+                <select class="form-control" formControlName="USUARIO_DELETE_PRIVILEGE">
+                  <option disabled>Habilitar exclusão</option>
+				  <!--  Logica do select Inicio  -->
+				  <ng-container *ngFor="let privilegio of privilegios">
+                  <option *ngIf="privilegio.nome==='USUARIO_DELETE_PRIVILEGE'" value={{privilegio.id}} >Sim</option>
+                  </ng-container>
+					<!-- Logica do select Fim-->
+					<option value=0>Não</option>
+                </select>
+
+                <div
+                  *ngIf="USUARIO_DELETE_PRIVILEGE.invalid && (USUARIO_DELETE_PRIVILEGE.dirty || USUARIO_DELETE_PRIVILEGE.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="USUARIO_DELETE_PRIVILEGE.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </fieldset>
+
+
+
+
+          <div class="form-group">
+          <div class="form-group col-md-4">
+                <label for="inputPassword4">Perfil</label>
+                <select class="form-control" formControlName="role">
+                  <option disabled>Tipo de Perfil</option>
+				   <option *ngFor="let role of roles" value={{role.id}}>{{role.nome}}</option>					
+                </select>
+
+                <div
+                  *ngIf="role.invalid && (role.dirty || role.touched)"
+                  class="alert alert-danger">
+
+                  <div *ngIf="role.errors?.required" class="alert alert-danger">
+                    Escolha uma opção.
+                  </div>
+                </div>
+              </div>
+            <div class=text-right>
+              <button type="submit" [disabled]="formUsuario.invalid" class="btn btn-primary">Salvar</button>
+            </div>
+
+          </div>
+
+        </form>
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+
+  <app-footer></app-footer>
+
+</div>

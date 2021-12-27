@@ -1,0 +1,163 @@
+<div style="min-height:100vh; display:flex; flex-direction:column; 
+            justify-content:space-between;">
+<app-menu></app-menu>
+<br>
+
+<div class="container-fluid">
+
+  <div class="row">    
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-success">
+        <div class="inner">
+          <h3>{{qtd_categoria}}<sup style="font-size: 20px"></sup></h3>
+
+          <p>Categorias</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <a routerLink="/categoria" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>{{qtd_marca}}</h3>
+
+          <p>Marcas</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-bag"></i>
+        </div>
+        <a routerLink="/marca" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+    
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-danger">
+        <div class="inner">
+          <h3>{{qtd_produto}}</h3>
+
+          <p>Produtos</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-pie-graph"></i>
+        </div>
+        <a routerLink="/produto" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-warning">
+        <div class="inner">
+          <h3>{{qtd_usuario}}</h3>
+
+          <p>Usuários Cadastrados</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-person-add"></i>
+        </div>
+        <a routerLink="/usuario" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<br>
+
+<div class="container">
+
+
+<div class="card">
+  <div class="card-body">
+    <div  class="row justify-content-center align-items-center">  <h1 class="card-title ">Atualizar dados de acesso</h1>  </div>
+    
+    <div  class="row justify-content-center align-items-center">
+     
+      <div id="login-column" class="col-md-6">
+          <div  class="col-md-12">
+          
+          
+           
+          
+          <form [formGroup]="formDashboard" (ngSubmit)="onSubmit()">
+            
+                  <div class="form-group">
+                      <label for="username" class="text">Usuario:</label><br>
+                     
+                      <input type="email" name="email" id="email" formControlName="email"   class="form-control">
+                      <input type="hidden" id="id" name="id" formControlName="id">
+                  </div>
+                  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+
+                    <div *ngIf="email.errors?.required">
+                        Email é obrigatorio.
+                    </div>
+                    <div *ngIf="email.errors?.email">
+                        Informe um email no padrão correto.
+                    </div>
+
+                </div>
+                  
+                  
+              
+                  
+                  
+                  <div class="form-group">
+                      <label for="password" class="text">Senha:</label><br>
+                      <input type="password"  formControlName="senha" class="form-control">
+
+                  </div>
+                  <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="alert alert-danger">
+
+                   
+                    <div *ngIf="senha.errors?.minlength" class="alert alert-danger">
+                        Minimo de 6 caracteres
+                    </div>
+
+                    <div *ngIf="senha.errors?.maxlength" class="alert alert-danger">
+                        Maximo de 10 caracteres
+                    </div>
+                </div>
+               
+
+
+                  
+
+               
+
+
+                  <div class="form-group">
+                     
+                      <div class=text-right>
+                        <button type="submit" [disabled]="formDashboard.invalid" class="btn btn-primary">Salvar</button>
+                      </div>
+                      
+                      
+                  
+                  
+                  </div>
+                 
+              </form> 
+          </div>
+      </div>
+  </div>
+  </div>
+</div>
+
+</div>	
+
+
+<app-footer></app-footer>
+
+</div>
